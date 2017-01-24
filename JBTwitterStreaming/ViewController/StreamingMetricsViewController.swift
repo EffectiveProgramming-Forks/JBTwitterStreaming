@@ -95,8 +95,8 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     }
     
     func refreshStream(control: UIRefreshControl?) {
-        refreshStream()
         control?.endRefreshing()
+        refreshStream()
     }
     
     private func refreshStream() {

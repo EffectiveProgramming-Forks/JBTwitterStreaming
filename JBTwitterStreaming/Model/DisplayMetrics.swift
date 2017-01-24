@@ -47,6 +47,9 @@ struct DisplayMetrics {
         return numberOfSeconds > 0 ? tweetCount / numberOfSeconds : 0
     }
     
+    /*
+     Designated Initializer
+     */
     init(metrics: Metrics, numberOfSeconds: UInt) {
         tweetCount = metrics.tweetCount
         containsEmojiCount = metrics.containsEmojiCount

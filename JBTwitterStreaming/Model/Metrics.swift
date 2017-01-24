@@ -9,7 +9,7 @@
 import Foundation
 
 struct Metrics {
-    private var didUpdate = false // don't update display metrics if metrics didn't update
+    private var didUpdate = false // don't update display metrics if metrics weren't updated
     
     // Hashtags
     var hashtags = [String: UInt]()
@@ -25,6 +25,37 @@ struct Metrics {
     // Photos
     var containsPhotoCount: UInt = 0
     var tweetCount: UInt = 0
+    
+    //MARK: Update metrics
+    
+    mutating func update(tweet: Tweet) {
+        tweetCount += 1
+        update(entityDictionary: &emojis, with: tweet.emojis)
+        update(entityDictionary: &hashtags, with: tweet.hashtags)
+        update(entityDictionary: &domains, with: tweet.urls)
+        if tweet.containsUrl {
+            containsUrlCount += 1
+        }
+        if tweet.containsPhoto {
+            containsPhotoCount += 1
+        }
+        if tweet.containsEmoji {
+            containsEmojiCount += 1
+        }
+        didUpdate = true
+    }
+    
+    private func update(entityDictionary dictionary: inout [String: UInt], with array: [String]) {
+        for value in array {
+            if let count = dictionary[value] {
+                dictionary[value] = count + 1
+            } else {
+                dictionary[value] = 1
+            }
+        }
+    }
+    
+    //MARK: Get display metrics
     
     mutating func getDisplayMetrics(startDate: Date?) -> DisplayMetrics? {
         if didUpdate == false {
@@ -50,32 +81,5 @@ struct Metrics {
     private func sort(dictionary: [String: UInt]) -> [TopValue] {
         let sortedArray = dictionary.sorted { $0.value > $1.value }
         return Array(sortedArray.prefix(Constant.TwitterStream.maxTopValuesToDisplay)) as! [TopValue]
-    }
-
-    private func update(array: [String], dictionary: inout [String: UInt]) {
-        for value in array {
-            if let count = dictionary[value] {
-                dictionary[value] = count + 1
-            } else {
-                dictionary[value] = 1
-            }
-        }
-    }
-    
-    mutating func update(tweet: Tweet) {
-        tweetCount += 1
-        update(array: tweet.emojis, dictionary: &emojis)
-        update(array: tweet.hashtags, dictionary: &hashtags)
-        update(array: tweet.urls, dictionary: &domains)
-        if tweet.containsUrl {
-            containsUrlCount += 1
-        }
-        if tweet.containsPhoto {
-            containsPhotoCount += 1
-        }
-        if tweet.containsEmoji {
-            containsEmojiCount += 1
-        }
-        didUpdate = true 
     }
 }

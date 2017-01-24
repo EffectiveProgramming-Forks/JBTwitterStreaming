@@ -88,10 +88,10 @@
 		A90CB7AE1E36DA3E00E49285 /* JBTwitterStreaming */ = {
 			isa = PBXGroup;
 			children = (
-				A90CB7D01E36DCE800E49285 /* Extension */,
 				A90CB7C71E36DC0000E49285 /* ViewController */,
 				A90CB7C21E36DBC600E49285 /* Model */,
 				A90CB7C31E36DBC600E49285 /* Network */,
+				A90CB7D01E36DCE800E49285 /* Extension */,
 				A90CB7C11E36DBBB00E49285 /* Utility */,
 				A90CB7AF1E36DA3E00E49285 /* AppDelegate.swift */,
 				A90CB7B31E36DA3E00E49285 /* Main.storyboard */,

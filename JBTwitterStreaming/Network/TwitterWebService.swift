@@ -42,21 +42,21 @@ class TwitterWebService {
                                        consumerSecret: consumerSecret,
                                        oauthToken: accessToken,
                                        oauthTokenSecret: accessTokenSecret)
-        streamRequest = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { (json: JSON) in
+        streamRequest = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { [weak self] (json: JSON) in
             if let tweet = Tweet.tweetWithJson(json) {
                 DispatchQueue.global().async {
-                    self.metrics?.update(tweet: tweet)
+                    self?.metrics?.update(tweet: tweet)
                 }
             }
             }, stallWarningHandler: { (_ code: String?, _ message: String?, _ percentFull: Int?) in
                 if let code = code, let message = message {
                     print("Stall warning code: \(code) message: \(message)")
                 }
-        }) { (error: Error) in
+        }) { [weak self] (error: Error) in
             let cancelledCode = -999
             if (error as NSError).code != cancelledCode {
-                self.delegate?.failedToLoadTweets(errorMessage: error.localizedDescription)
-                self.stopDisplayMetricsTimer()
+                self?.delegate?.failedToLoadTweets(errorMessage: error.localizedDescription)
+                self?.stopDisplayMetricsTimer()
             }
         }
     }
@@ -72,9 +72,9 @@ class TwitterWebService {
     }
     
     private func addUpdateDisplayMetricsTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: Constant.TwitterStream.updateDisplayMetricsInterval, repeats: true) { (timer: Timer) in
+        timer = Timer.scheduledTimer(withTimeInterval: Constant.TwitterStream.updateDisplayMetricsInterval, repeats: true) { [weak self] (timer: Timer) in
             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).sync {
-                self.updateDisplayMetrics()
+                self?.updateDisplayMetrics()
             }
         }
     }

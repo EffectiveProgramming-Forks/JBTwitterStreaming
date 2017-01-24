@@ -11,7 +11,7 @@ import Foundation
 extension UnicodeScalar {
     var isEmoji: Bool {
         switch value {
-        case 0x1D000 ... 0x1F77F: return true // Emoticons
+        case 0x1D000 ... 0x1F77F: return true
         default: return false
         }
     }
