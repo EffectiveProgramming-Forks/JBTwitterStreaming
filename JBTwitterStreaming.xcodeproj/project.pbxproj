@@ -139,10 +139,10 @@
 		A90CB7D01E36DCE800E49285 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A90CB7D11E36DCEF00E49285 /* String.swift */,
 				A90CB7D31E36DDFD00E49285 /* UIColor.swift */,
-				A90CB7D91E36E10800E49285 /* UnicodeScalar.swift */,
 				A90CB7DD1E36EE7700E49285 /* Date.swift */,
+				A90CB7D11E36DCEF00E49285 /* String.swift */,
+				A90CB7D91E36E10800E49285 /* UnicodeScalar.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";

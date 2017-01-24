@@ -13,36 +13,28 @@ typealias Emoji = String
 extension Emoji {
     
     var glyphCount: Int {
-        
         let richText = NSAttributedString(string: self)
         let line = CTLineCreateWithAttributedString(richText)
         return CTLineGetGlyphCount(line)
     }
     
     var isSingleEmoji: Bool {
-        
         return glyphCount == 1 && containsEmoji
     }
     
     var containsEmoji: Bool {
-        
         return unicodeScalars.map { $0 }.filter { $0.isEmoji }.count != 0
     }
     
     var containsOnlyEmoji: Bool {
-        
         return unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
     }
     
-    // The next tricks are mostly to demonstrate how tricky it can be to determine emoji's
-    // If anyone has suggestions how to improve this, please let me know
     var emojiString: String {
-        
         return emojiScalars.map { String($0) }.reduce("", +)
     }
     
     var emojis: [String] {
-        
         var scalars: [[UnicodeScalar]] = []
         var currentScalarSet: [UnicodeScalar] = []
         var previousScalar: UnicodeScalar?
@@ -65,7 +57,6 @@ extension Emoji {
     }
     
     fileprivate var emojiScalars: [UnicodeScalar] {
-        
         var chars: [UnicodeScalar] = []
         var previous: UnicodeScalar?
         for cur in unicodeScalars {
@@ -80,7 +71,6 @@ extension Emoji {
             
             previous = cur
         }
-        
         return chars
     }
 }

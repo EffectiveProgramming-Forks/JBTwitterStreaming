@@ -27,11 +27,11 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     //MARK: Observers
     
     private func addObservers() {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationWillEnterForeground), object: nil, queue: nil) { (notification) in
-            self.startStreaming()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationWillEnterForeground), object: nil, queue: nil) { [weak self] (notification) in
+            self?.startStreaming()
         }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationDidEnterBackground), object: nil, queue: nil) { (notification) in
-            self.stopStreaming()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationDidEnterBackground), object: nil, queue: nil) { [weak self] (notification) in
+            self?.stopStreaming()
         }
     }
     
@@ -72,6 +72,20 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
         refreshStream()
     }
     
+    //MARK: Load Data
+    
+    private func startStreaming() {
+        webservice?.stopStreaming()
+        webservice = TwitterWebService(delegate: self)
+        webservice?.startStreaming()
+    }
+    
+    private func stopStreaming() {
+        webservice?.stopStreaming()
+        webservice = nil
+        tableView.reloadData()
+    }
+    
     //MARK: Refresh
     
     private func addRefreshControl() {
@@ -89,20 +103,6 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     private func refreshStream() {
         stopStreaming()
         startStreaming()
-    }
-    
-    //MARK: Load Data 
-    
-    private func startStreaming() {
-        webservice?.stopStreaming()
-        webservice = TwitterWebService(delegate: self)
-        webservice?.startStreaming()
-    }
-    
-    private func stopStreaming() {
-        webservice?.stopStreaming()
-        webservice = nil
-        tableView.reloadData()
     }
     
     //MARK: TableView Datasource

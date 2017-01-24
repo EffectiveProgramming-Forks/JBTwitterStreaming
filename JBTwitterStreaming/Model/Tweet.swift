@@ -9,48 +9,6 @@
 import Foundation
 import Swifter
 
-fileprivate struct Entities {
-    var urls = [String]()
-    var hashtags: [String] = []
-    var emojis: [String] = []
-    var containsPhoto = false
-    
-    init() {
-        
-    }
-    
-    init(json: JSON) {
-        if let urlsJson = json["urls"].array {
-            for json in urlsJson {
-                if let urlString = json["expanded_url"].string, let domain = URL(string: urlString)?.host {
-                    urls.append(domain)
-                }
-            }
-        }
-        if let hashtagsJson = json["hashtags"].array {
-            for json in hashtagsJson {
-                if let text = json["text"].string, text != "" {
-                    hashtags.append(text)
-                }
-            }
-        }
-        containsPhoto = containsPhoto(json: json)
-    }
-    
-    func containsPhoto(json: JSON) -> Bool {
-        var containsPhoto = false
-        if let mediaJson = json["media"].array {
-            for json in mediaJson {
-                if let type = json["type"].string, type == "photo" {
-                    containsPhoto = true
-                    break
-                }
-            }
-        }
-        return containsPhoto
-    }
-}
-
 class Tweet {
     var text: String?
     var emojis: [String] = []
@@ -75,16 +33,41 @@ class Tweet {
             tweet.emojis = emojis
         }
         if let entitiesObject = json["entities"].object {
-            let entities = Entities(json: JSON(entitiesObject))
-            tweet.urls = entities.urls
-            tweet.hashtags = entities.hashtags
-            tweet.containsPhoto = entities.containsPhoto
+            let json = JSON(entitiesObject)
+            if let urlsJson = json["urls"].array {
+                for json in urlsJson {
+                    if let urlString = json["expanded_url"].string,
+                        let domain = URL(string: urlString)?.host {
+                        tweet.urls.append(domain)
+                    }
+                }
+            }
+            if let hashtagsJson = json["hashtags"].array {
+                for json in hashtagsJson {
+                    if let text = json["text"].string, text != "" {
+                        tweet.hashtags.append(text)
+                    }
+                }
+            }
+            tweet.containsPhoto = tweet.containsPhoto(json: json)
         }
         if !tweet.containsPhoto, let extendedEntitiesObject = json["extended_entities"].object {
-            let entities = Entities()
-            tweet.containsPhoto = entities.containsPhoto(json: JSON(extendedEntitiesObject))
+            tweet.containsPhoto = tweet.containsPhoto(json: JSON(extendedEntitiesObject))
         }
         return tweet
+    }
+    
+    private func containsPhoto(json: JSON) -> Bool {
+        var containsPhoto = false
+        if let mediaJson = json["media"].array {
+            for json in mediaJson {
+                if let type = json["type"].string, type == "photo" {
+                    containsPhoto = true
+                    break
+                }
+            }
+        }
+        return containsPhoto
     }
 }
 

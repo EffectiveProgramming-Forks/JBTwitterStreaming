@@ -17,10 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let viewController = StreamingMetricsViewController()
         window?.rootViewController = UINavigationController(rootViewController: viewController)
+        setAppAppearance()
+        return true
+    }
+    
+    private func setAppAppearance() {
         UINavigationBar.appearance().barTintColor = UIColor.twitterLogoBlue
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         UIApplication.shared.statusBarStyle = .lightContent
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
