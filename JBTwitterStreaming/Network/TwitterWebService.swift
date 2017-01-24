@@ -9,25 +9,30 @@
 import Foundation
 import Swifter
 
-protocol TwitterWebServiceDelegate {
+protocol TwitterWebServiceDelegate: class {
     func didLoadTweets(metrics: DisplayMetrics?)
     func failedToLoadTweets(errorMessage: String)
 }
 
 class TwitterWebService {
-    var delegate: TwitterWebServiceDelegate?
-    private var metrics = Metrics()
+    weak var delegate: TwitterWebServiceDelegate?
+    private var streamRequest: HTTPRequest?
+    private var metrics: Metrics?
     private var startDate: Date?
     private var timer: Timer?
     init(delegate: TwitterWebServiceDelegate?) {
         self.delegate = delegate
     }
     
-    func getTweets() {
-        if self.timer == nil {
-            self.updateDisplayMetrics()
-            self.addUpdateDisplayMetricsTimer()
-        }
+    func stopStreaming() {
+        streamRequest?.stop()
+        stopDisplayMetricsTimer()
+        metrics = nil
+    }
+    
+    func startStreaming() {
+        metrics = Metrics()
+        addUpdateDisplayMetricsTimer()
         startDate = Date()
         let consumerKey = "aVThC4Adafl2fMQdnMVTdPGnS"
         let consumerSecret = "tpsDI7XfHryBRSwYEFugHWhKwfEKtixPy8bwVvvwpBDE6vtchc"
@@ -37,17 +42,22 @@ class TwitterWebService {
                                        consumerSecret: consumerSecret,
                                        oauthToken: accessToken,
                                        oauthTokenSecret: accessTokenSecret)
-        _ = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { (json: JSON) in
+        streamRequest = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { (json: JSON) in
             if let tweet = Tweet.tweetWithJson(json) {
                 DispatchQueue.global().async {
-                    self.metrics.update(tweet: tweet)
+                    self.metrics?.update(tweet: tweet)
                 }
             }
-            }, stallWarningHandler: { (a: String?, b: String?, c: Int?) in
-                print("")
+            }, stallWarningHandler: { (_ code: String?, _ message: String?, _ percentFull: Int?) in
+                if let code = code, let message = message {
+                    print("Stall warning code: \(code) message: \(message)")
+                }
         }) { (error: Error) in
-            self.delegate?.failedToLoadTweets(errorMessage: error.localizedDescription)
-            self.stopDisplayMetricsTimer()
+            let cancelledCode = -999
+            if (error as NSError).code != cancelledCode {
+                self.delegate?.failedToLoadTweets(errorMessage: error.localizedDescription)
+                self.stopDisplayMetricsTimer()
+            }
         }
     }
     
@@ -58,7 +68,7 @@ class TwitterWebService {
         if let startDate = self.startDate {
             numberOfSeconds = UInt(startDate.secondsSinceDate)
         }
-        let displayMetrics = self.metrics.getDisplayMetrics(numberOfSeconds: numberOfSeconds)
+        let displayMetrics = self.metrics?.getDisplayMetrics(numberOfSeconds: numberOfSeconds)
         DispatchQueue.main.async {
             self.delegate?.didLoadTweets(metrics: displayMetrics)
         }
@@ -72,7 +82,7 @@ class TwitterWebService {
         }
     }
     
-    func stopDisplayMetricsTimer() {
+    private func stopDisplayMetricsTimer() {
         timer?.invalidate()
         timer = nil
     }

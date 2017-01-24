@@ -10,22 +10,99 @@ import UIKit
 
 class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDelegate {
     private var metrics: DisplayMetrics?
+    private var webservice: TwitterWebService?
     
-    //MARK: View lifecycle 
+    /*
+     Designated Initializer
+     */
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        addObservers()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: Observers
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationWillEnterForeground), object: nil, queue: nil) { (notification) in
+            self.startStreaming()
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Constant.Notification.applicationDidEnterBackground), object: nil, queue: nil) { (notification) in
+            self.stopStreaming()
+        }
+    }
+    
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: Constant.Notification.applicationWillEnterForeground),
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: Constant.Notification.applicationDidEnterBackground),
+                                                  object: nil)
+    }
+
+    //MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Twitter stream sample"
-        loadData()
+        addRefreshControl()
     }
     
-    private func loadData() {
-        let webservice = TwitterWebService(delegate: self)
-        webservice.getTweets()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        metrics = nil
+        startStreaming()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopStreaming()
+    }
+    
+    deinit {
+        removeObservers()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        refreshStream()
+    }
+    
+    //MARK: Refresh
+    
+    private func addRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self,
+                                  action: #selector(refreshStream(control:)),
+                                  for: UIControlEvents.valueChanged)
+    }
+    
+    func refreshStream(control: UIRefreshControl?) {
+        refreshStream()
+        control?.endRefreshing()
+    }
+    
+    private func refreshStream() {
+        stopStreaming()
+        startStreaming()
+    }
+    
+    //MARK: Load Data 
+    
+    private func startStreaming() {
+        webservice?.stopStreaming()
+        webservice = TwitterWebService(delegate: self)
+        webservice?.startStreaming()
+    }
+    
+    private func stopStreaming() {
+        webservice?.stopStreaming()
+        webservice = nil
+        tableView.reloadData()
     }
     
     //MARK: TableView Datasource

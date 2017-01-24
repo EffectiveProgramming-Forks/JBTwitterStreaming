@@ -26,4 +26,9 @@ struct Constant {
         static let secondsInMinute: UInt = 60
         static let minutesInHour: UInt = 60
     }
+    
+    struct Notification {
+        static let applicationDidEnterBackground = "applicationDidEnterBackground"
+        static let applicationWillEnterForeground = "applicationWillEnterForeground"
+    }
 }
