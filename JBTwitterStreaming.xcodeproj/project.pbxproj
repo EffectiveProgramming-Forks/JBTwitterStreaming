@@ -8,10 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		A90CB7B01E36DA3E00E49285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7AF1E36DA3E00E49285 /* AppDelegate.swift */; };
-		A90CB7B21E36DA3E00E49285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7B11E36DA3E00E49285 /* ViewController.swift */; };
 		A90CB7B51E36DA3E00E49285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B31E36DA3E00E49285 /* Main.storyboard */; };
 		A90CB7B71E36DA3E00E49285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B61E36DA3E00E49285 /* Assets.xcassets */; };
 		A90CB7BA1E36DA3E00E49285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B81E36DA3E00E49285 /* LaunchScreen.storyboard */; };
+		A90CB7CB1E36DC6E00E49285 /* StreamingMetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7CA1E36DC6E00E49285 /* StreamingMetricsViewController.swift */; };
+		A90CB7CD1E36DC9400E49285 /* TwitterWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7CC1E36DC9400E49285 /* TwitterWebService.swift */; };
+		A90CB7CF1E36DCB800E49285 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7CE1E36DCB800E49285 /* Tweet.swift */; };
+		A90CB7D21E36DCEF00E49285 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7D11E36DCEF00E49285 /* String.swift */; };
+		A90CB7D41E36DDFD00E49285 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7D31E36DDFD00E49285 /* UIColor.swift */; };
+		A90CB7D61E36DFDA00E49285 /* DisplayMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7D51E36DFDA00E49285 /* DisplayMetrics.swift */; };
+		A90CB7D81E36E06E00E49285 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7D71E36E06E00E49285 /* Metrics.swift */; };
+		A90CB7DA1E36E10800E49285 /* UnicodeScalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7D91E36E10800E49285 /* UnicodeScalar.swift */; };
+		A90CB7DC1E36E2C400E49285 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90CB7DB1E36E2C400E49285 /* Constant.swift */; };
 		F514362B800DB51BAFA98089 /* Pods_JBTwitterStreaming.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E8CB95D2A5138191281BFE /* Pods_JBTwitterStreaming.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,11 +27,19 @@
 		A09EF8E392A41C898F48DB3D /* Pods-JBTwitterStreaming.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JBTwitterStreaming.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming.debug.xcconfig"; sourceTree = "<group>"; };
 		A90CB7AC1E36DA3E00E49285 /* JBTwitterStreaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JBTwitterStreaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90CB7AF1E36DA3E00E49285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A90CB7B11E36DA3E00E49285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A90CB7B41E36DA3E00E49285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A90CB7B61E36DA3E00E49285 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A90CB7B91E36DA3E00E49285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A90CB7BB1E36DA3E00E49285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A90CB7CA1E36DC6E00E49285 /* StreamingMetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingMetricsViewController.swift; sourceTree = "<group>"; };
+		A90CB7CC1E36DC9400E49285 /* TwitterWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterWebService.swift; sourceTree = "<group>"; };
+		A90CB7CE1E36DCB800E49285 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		A90CB7D11E36DCEF00E49285 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		A90CB7D31E36DDFD00E49285 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		A90CB7D51E36DFDA00E49285 /* DisplayMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayMetrics.swift; sourceTree = "<group>"; };
+		A90CB7D71E36E06E00E49285 /* Metrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		A90CB7D91E36E10800E49285 /* UnicodeScalar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnicodeScalar.swift; sourceTree = "<group>"; };
+		A90CB7DB1E36E2C400E49285 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		B6E8CB95D2A5138191281BFE /* Pods_JBTwitterStreaming.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JBTwitterStreaming.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7EF3A4276F95433D5E974E5 /* Pods-JBTwitterStreaming.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JBTwitterStreaming.release.xcconfig"; path = "Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,14 +86,62 @@
 		A90CB7AE1E36DA3E00E49285 /* JBTwitterStreaming */ = {
 			isa = PBXGroup;
 			children = (
+				A90CB7D01E36DCE800E49285 /* Extension */,
+				A90CB7C71E36DC0000E49285 /* ViewController */,
+				A90CB7C21E36DBC600E49285 /* Model */,
+				A90CB7C31E36DBC600E49285 /* Network */,
+				A90CB7C11E36DBBB00E49285 /* Utility */,
 				A90CB7AF1E36DA3E00E49285 /* AppDelegate.swift */,
-				A90CB7B11E36DA3E00E49285 /* ViewController.swift */,
 				A90CB7B31E36DA3E00E49285 /* Main.storyboard */,
 				A90CB7B61E36DA3E00E49285 /* Assets.xcassets */,
 				A90CB7B81E36DA3E00E49285 /* LaunchScreen.storyboard */,
 				A90CB7BB1E36DA3E00E49285 /* Info.plist */,
 			);
 			path = JBTwitterStreaming;
+			sourceTree = "<group>";
+		};
+		A90CB7C11E36DBBB00E49285 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				A90CB7DB1E36E2C400E49285 /* Constant.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		A90CB7C21E36DBC600E49285 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A90CB7CE1E36DCB800E49285 /* Tweet.swift */,
+				A90CB7D51E36DFDA00E49285 /* DisplayMetrics.swift */,
+				A90CB7D71E36E06E00E49285 /* Metrics.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A90CB7C31E36DBC600E49285 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A90CB7CC1E36DC9400E49285 /* TwitterWebService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A90CB7C71E36DC0000E49285 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A90CB7CA1E36DC6E00E49285 /* StreamingMetricsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A90CB7D01E36DCE800E49285 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A90CB7D11E36DCEF00E49285 /* String.swift */,
+				A90CB7D31E36DDFD00E49285 /* UIColor.swift */,
+				A90CB7D91E36E10800E49285 /* UnicodeScalar.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		D040F2ABE4D84586C286195A /* Frameworks */ = {
@@ -211,8 +275,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A90CB7B21E36DA3E00E49285 /* ViewController.swift in Sources */,
+				A90CB7D21E36DCEF00E49285 /* String.swift in Sources */,
+				A90CB7D41E36DDFD00E49285 /* UIColor.swift in Sources */,
+				A90CB7CD1E36DC9400E49285 /* TwitterWebService.swift in Sources */,
+				A90CB7CF1E36DCB800E49285 /* Tweet.swift in Sources */,
 				A90CB7B01E36DA3E00E49285 /* AppDelegate.swift in Sources */,
+				A90CB7D61E36DFDA00E49285 /* DisplayMetrics.swift in Sources */,
+				A90CB7CB1E36DC6E00E49285 /* StreamingMetricsViewController.swift in Sources */,
+				A90CB7DC1E36E2C400E49285 /* Constant.swift in Sources */,
+				A90CB7DA1E36E10800E49285 /* UnicodeScalar.swift in Sources */,
+				A90CB7D81E36E06E00E49285 /* Metrics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +446,7 @@
 				A90CB7C01E36DA3E00E49285 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
