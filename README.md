@@ -5,7 +5,7 @@
   - Total number of tweets received
   - Average tweets per hour/minute/second
   - Percent of tweets that contain a url
-  - Percent of tweets that contains emojis
+  - Percent of tweets that contain an emoji
   - Percent of tweets that contain a photo url
   - Top 10 hashtags
   - Top 10 domains
