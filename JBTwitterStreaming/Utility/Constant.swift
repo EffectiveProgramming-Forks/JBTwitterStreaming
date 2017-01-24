@@ -19,7 +19,7 @@ struct Constant {
     }
     
     struct TwitterStream {
-        static let updateDisplayMetricsInterval: TimeInterval = 0.3
+        static let updateDisplayMetricsInterval: TimeInterval = 0.05
         static let maxTopValuesToDisplay: Int = 10
     }
     

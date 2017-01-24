@@ -35,7 +35,7 @@ struct DisplayMetrics {
     }
     
     // Metrics
-    private var numberOfSeconds: UInt = 0
+    var numberOfSeconds: UInt = 0
     var tweetCount: UInt = 0
     var tweetsPerHour: UInt {
         return tweetsPerMinute * Constant.Time.minutesInHour
@@ -50,12 +50,11 @@ struct DisplayMetrics {
     /*
      Designated Initializer
      */
-    init(metrics: Metrics, numberOfSeconds: UInt) {
+    init(metrics: Metrics) {
         tweetCount = metrics.tweetCount
         containsEmojiCount = metrics.containsEmojiCount
         containsUrlCount = metrics.containsUrlCount
         containsPhotoCount = metrics.containsPhotoCount
-        self.numberOfSeconds = numberOfSeconds
     }
     
     private func getPercentTweetsContainingEntity(entityCount: UInt) -> UInt {

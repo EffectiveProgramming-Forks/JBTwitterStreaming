@@ -20,6 +20,7 @@ class TwitterWebService {
     private var metrics: Metrics?
     private var startDate: Date?
     private var timer: Timer?
+    private let queue = DispatchQueue(label: "com.twitterstreaming.serialqueue", attributes: .concurrent)
     init(delegate: TwitterWebServiceDelegate?) {
         self.delegate = delegate
     }
@@ -66,16 +67,37 @@ class TwitterWebService {
     //MARK: Update Display Metrics Timer
     
     private func updateDisplayMetrics() {
-        if let displayMetrics = metrics?.getDisplayMetrics(startDate: startDate) {
-            DispatchQueue.main.async {
-                self.delegate?.didLoadTweets(metrics: displayMetrics)
+        guard let metrics = self.metrics, metrics.shouldUpdateDisplayMetrics == true else {
+            return
+        }
+        var displayMetrics = DisplayMetrics(metrics: metrics)
+        let group = DispatchGroup()
+        
+        queue.async (group: group) {
+            displayMetrics.topHashtags = metrics.sort(dictionary: metrics.hashtags)
+        }
+        
+        queue.async (group: group) {
+            displayMetrics.topEmojis = metrics.sort(dictionary: metrics.emojis)
+        }
+        
+        queue.async (group: group) {
+            displayMetrics.topDomains = metrics.sort(dictionary: metrics.domains)
+        }
+        queue.async (group: group) {
+            if let startDate = self.startDate {
+                displayMetrics.numberOfSeconds = UInt(startDate.secondsSinceDate)
             }
+        }
+        group.notify(queue: DispatchQueue.main) {
+            self.metrics?.didUpdateDisplayMetrics()
+            self.delegate?.didLoadTweets(metrics: displayMetrics)
         }
     }
     
     private func addUpdateDisplayMetricsTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: Constant.TwitterStream.updateDisplayMetricsInterval, repeats: true) { [weak self] (timer: Timer) in
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).sync {
+            DispatchQueue.global().async {
                 self?.updateDisplayMetrics()
             }
         }

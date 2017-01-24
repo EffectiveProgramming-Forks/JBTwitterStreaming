@@ -9,8 +9,6 @@
 import Foundation
 
 struct Metrics {
-    private var didUpdate = false // don't update display metrics if metrics weren't updated
-    
     // Hashtags
     var hashtags = [String: UInt]()
     
@@ -25,6 +23,12 @@ struct Metrics {
     // Photos
     var containsPhotoCount: UInt = 0
     var tweetCount: UInt = 0
+    
+    // Update
+    private var didUpdate = false // don't update display metrics if metrics weren't updated
+    var shouldUpdateDisplayMetrics: Bool {
+        return didUpdate
+    }
     
     //MARK: Update metrics
     
@@ -55,31 +59,16 @@ struct Metrics {
         }
     }
     
-    //MARK: Get display metrics
+    //MARK: Sort entities
     
-    mutating func getDisplayMetrics(startDate: Date?) -> DisplayMetrics? {
-        if didUpdate == false {
-            return nil
-        }
-        let numberOfSeconds = getNumberOfSecondsElapsed(startDate: startDate)
-        var displayMetrics = DisplayMetrics(metrics: self, numberOfSeconds: numberOfSeconds)
-        displayMetrics.topHashtags = sort(dictionary: hashtags)
-        displayMetrics.topEmojis = sort(dictionary: emojis)
-        displayMetrics.topDomains = sort(dictionary: domains)
-        didUpdate = false
-        return displayMetrics
-    }
-    
-    private func getNumberOfSecondsElapsed(startDate: Date?) -> UInt {
-        var numberOfSeconds: UInt = 0
-        if let startDate = startDate {
-            numberOfSeconds = UInt(startDate.secondsSinceDate)
-        }
-        return numberOfSeconds
-    }
-    
-    private func sort(dictionary: [String: UInt]) -> [TopValue] {
+    func sort(dictionary: [String: UInt]) -> [TopValue] {
         let sortedArray = dictionary.sorted { $0.value > $1.value }
         return Array(sortedArray.prefix(Constant.TwitterStream.maxTopValuesToDisplay)) as! [TopValue]
+    }
+
+    //MARK: Update display metrics
+    
+    mutating func didUpdateDisplayMetrics() {
+        didUpdate = false
     }
 }
