@@ -64,13 +64,10 @@ class TwitterWebService {
     //MARK: Update Display Metrics Timer
     
     private func updateDisplayMetrics() {
-        var numberOfSeconds: UInt = 0
-        if let startDate = self.startDate {
-            numberOfSeconds = UInt(startDate.secondsSinceDate)
-        }
-        let displayMetrics = self.metrics?.getDisplayMetrics(numberOfSeconds: numberOfSeconds)
-        DispatchQueue.main.async {
-            self.delegate?.didLoadTweets(metrics: displayMetrics)
+        if let displayMetrics = metrics?.getDisplayMetrics(startDate: startDate) {
+            DispatchQueue.main.async {
+                self.delegate?.didLoadTweets(metrics: displayMetrics)
+            }
         }
     }
     

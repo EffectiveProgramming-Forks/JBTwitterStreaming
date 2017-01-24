@@ -9,6 +9,8 @@
 import Foundation
 
 struct Metrics {
+    private var didUpdate = false // don't update display metrics if metrics didn't update
+    
     // Hashtags
     var hashtags = [String: UInt]()
     
@@ -24,33 +26,32 @@ struct Metrics {
     var containsPhotoCount: UInt = 0
     var tweetCount: UInt = 0
     
-    func getDisplayMetrics(numberOfSeconds: UInt) -> DisplayMetrics {
+    mutating func getDisplayMetrics(startDate: Date?) -> DisplayMetrics? {
+        if didUpdate == false {
+            return nil
+        }
+        let numberOfSeconds = getNumberOfSecondsElapsed(startDate: startDate)
         var displayMetrics = DisplayMetrics(metrics: self, numberOfSeconds: numberOfSeconds)
         displayMetrics.topHashtags = sort(dictionary: hashtags)
         displayMetrics.topEmojis = sort(dictionary: emojis)
         displayMetrics.topDomains = sort(dictionary: domains)
+        didUpdate = false
         return displayMetrics
     }
     
-    func sort(dictionary: [String: UInt]) -> [TopValue] {
-        let sortedArray = dictionary.sorted { $0.1 > $1.1 }
-        return Array(sortedArray.prefix(10)) as! [TopValue]
-    }
-    
-    func bucketSort(dictionary: [String: UInt]) -> [[String]] {
-        var sortedArray: [[String]]?
-        if let arraySize = dictionary.values.max() {
-            var array = [[String]](repeating: [""], count: Int(arraySize + 1))
-            for (key, value) in dictionary {
-                var values: [String] = array[Int(value)]
-                values.append(key)
-                array[Int(value)] = values
-            }
-            sortedArray = array
+    private func getNumberOfSecondsElapsed(startDate: Date?) -> UInt {
+        var numberOfSeconds: UInt = 0
+        if let startDate = startDate {
+            numberOfSeconds = UInt(startDate.secondsSinceDate)
         }
-        return sortedArray ?? [[]]
+        return numberOfSeconds
     }
     
+    private func sort(dictionary: [String: UInt]) -> [TopValue] {
+        let sortedArray = dictionary.sorted { $0.value > $1.value }
+        return Array(sortedArray.prefix(Constant.TwitterStream.maxTopValuesToDisplay)) as! [TopValue]
+    }
+
     private func update(array: [String], dictionary: inout [String: UInt]) {
         for value in array {
             if let count = dictionary[value] {
@@ -75,5 +76,6 @@ struct Metrics {
         if tweet.containsEmoji {
             containsEmojiCount += 1
         }
+        didUpdate = true 
     }
 }

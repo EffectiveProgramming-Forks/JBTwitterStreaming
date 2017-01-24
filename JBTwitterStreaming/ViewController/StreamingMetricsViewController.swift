@@ -54,7 +54,6 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        metrics = nil
         startStreaming()
     }
     
@@ -75,7 +74,7 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     //MARK: Load Data
     
     private func startStreaming() {
-        webservice?.stopStreaming()
+        tableView.reloadData()
         webservice = TwitterWebService(delegate: self)
         webservice?.startStreaming()
     }
@@ -83,7 +82,7 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     private func stopStreaming() {
         webservice?.stopStreaming()
         webservice = nil
-        tableView.reloadData()
+        metrics = nil
     }
     
     //MARK: Refresh
@@ -151,6 +150,7 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+        stopStreaming()
     }
 }
 
@@ -162,7 +162,7 @@ fileprivate enum Section {
     
     func getNumberOfRows(_ metrics: DisplayMetrics?) -> Int {
         switch self {
-        case .metrics: return Metric.allSections.count
+        case .metrics: return metrics != nil ? Metric.allRows.count : Constant.TableView.minimumNumberOfRowsInSection
         case .hashtags: return getNumberOfTopValuesToDisplay(entityCount: metrics?.topHashtags.count)
         case .domains: return getNumberOfTopValuesToDisplay(entityCount: metrics?.topDomains.count)
         case .emojis: return getNumberOfTopValuesToDisplay(entityCount: metrics?.topEmojis.count)
@@ -183,7 +183,7 @@ fileprivate enum Section {
         }
         switch self {
         case .metrics:
-            return Metric.allSections[index].getDisplayValue(metrics)
+            return Metric.allRows[index].getDisplayValue(metrics)
         case .hashtags:
             return getDisplayValue(index: index, topValue: metrics.topHashtags)
         case .domains:
@@ -229,13 +229,13 @@ fileprivate enum Section {
             case .tweetsPerHour: return ("Tweets per hour", metrics.tweetsPerHour)
             case .tweetsPerMinute: return ("Tweets per minute", metrics.tweetsPerMinute)
             case .tweetsPerSecond: return ("Tweets per second", metrics.tweetsPerSecond)
-            case .percentContainUrl: return ("Percent contain a url", metrics.percentContainUrl)
-            case .percentContainEmoji: return ("Percent contain an emoji", metrics.percentContainEmoji)
-            case .percentContainPhoto: return ("Percent contain a photo", metrics.percentContainPhoto)
+            case .percentContainUrl: return ("Percent tweets contain a url", metrics.percentContainUrl)
+            case .percentContainEmoji: return ("Percent tweets contain an emoji", metrics.percentContainEmoji)
+            case .percentContainPhoto: return ("Percent tweets contain a photo", metrics.percentContainPhoto)
             }
         }
         
-        static var allSections: [Metric] {
+        static var allRows: [Metric] {
             return [.tweetCount,
                     .tweetsPerHour,
                     .tweetsPerMinute,
