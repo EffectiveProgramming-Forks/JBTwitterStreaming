@@ -74,6 +74,7 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     //MARK: Load Data
     
     private func startStreaming() {
+        stopStreaming()
         tableView.reloadData()
         webservice = TwitterWebService(delegate: self)
         webservice?.startStreaming()
@@ -100,7 +101,6 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
     }
     
     private func refreshStream() {
-        stopStreaming()
         startStreaming()
     }
     
