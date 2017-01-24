@@ -12,9 +12,11 @@
 		A90CB7B51E36DA3E00E49285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B31E36DA3E00E49285 /* Main.storyboard */; };
 		A90CB7B71E36DA3E00E49285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B61E36DA3E00E49285 /* Assets.xcassets */; };
 		A90CB7BA1E36DA3E00E49285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A90CB7B81E36DA3E00E49285 /* LaunchScreen.storyboard */; };
+		F514362B800DB51BAFA98089 /* Pods_JBTwitterStreaming.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E8CB95D2A5138191281BFE /* Pods_JBTwitterStreaming.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A09EF8E392A41C898F48DB3D /* Pods-JBTwitterStreaming.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JBTwitterStreaming.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming.debug.xcconfig"; sourceTree = "<group>"; };
 		A90CB7AC1E36DA3E00E49285 /* JBTwitterStreaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JBTwitterStreaming.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90CB7AF1E36DA3E00E49285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A90CB7B11E36DA3E00E49285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		A90CB7B61E36DA3E00E49285 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A90CB7B91E36DA3E00E49285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A90CB7BB1E36DA3E00E49285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6E8CB95D2A5138191281BFE /* Pods_JBTwitterStreaming.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JBTwitterStreaming.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7EF3A4276F95433D5E974E5 /* Pods-JBTwitterStreaming.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JBTwitterStreaming.release.xcconfig"; path = "Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F514362B800DB51BAFA98089 /* Pods_JBTwitterStreaming.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44425B918E95101A59493690 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A09EF8E392A41C898F48DB3D /* Pods-JBTwitterStreaming.debug.xcconfig */,
+				C7EF3A4276F95433D5E974E5 /* Pods-JBTwitterStreaming.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A90CB7A31E36DA3E00E49285 = {
 			isa = PBXGroup;
 			children = (
 				A90CB7AE1E36DA3E00E49285 /* JBTwitterStreaming */,
 				A90CB7AD1E36DA3E00E49285 /* Products */,
+				44425B918E95101A59493690 /* Pods */,
+				D040F2ABE4D84586C286195A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = JBTwitterStreaming;
 			sourceTree = "<group>";
 		};
+		D040F2ABE4D84586C286195A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6E8CB95D2A5138191281BFE /* Pods_JBTwitterStreaming.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A90CB7BE1E36DA3E00E49285 /* Build configuration list for PBXNativeTarget "JBTwitterStreaming" */;
 			buildPhases = (
+				070758983BC3A1727EC9FEBE /* [CP] Check Pods Manifest.lock */,
 				A90CB7A81E36DA3E00E49285 /* Sources */,
 				A90CB7A91E36DA3E00E49285 /* Frameworks */,
 				A90CB7AA1E36DA3E00E49285 /* Resources */,
+				BB1E53C724117C5D56955E7B /* [CP] Embed Pods Frameworks */,
+				9579B46A78BF2A828B50DD07 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		070758983BC3A1727EC9FEBE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9579B46A78BF2A828B50DD07 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB1E53C724117C5D56955E7B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JBTwitterStreaming/Pods-JBTwitterStreaming-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A90CB7A81E36DA3E00E49285 /* Sources */ = {
@@ -256,6 +331,7 @@
 		};
 		A90CB7BF1E36DA3E00E49285 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A09EF8E392A41C898F48DB3D /* Pods-JBTwitterStreaming.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JBTwitterStreaming/Info.plist;
@@ -268,6 +344,7 @@
 		};
 		A90CB7C01E36DA3E00E49285 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7EF3A4276F95433D5E974E5 /* Pods-JBTwitterStreaming.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JBTwitterStreaming/Info.plist;

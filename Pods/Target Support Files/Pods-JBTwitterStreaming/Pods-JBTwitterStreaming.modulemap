@@ -1,0 +1,6 @@
+framework module Pods_JBTwitterStreaming {
+  umbrella header "Pods-JBTwitterStreaming-umbrella.h"
+
+  export *
+  module * { export * }
+}
