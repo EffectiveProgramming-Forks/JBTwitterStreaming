@@ -11,12 +11,12 @@ import Swifter
 
 protocol TwitterWebServiceDelegate {
     func didLoadTweets(metrics: DisplayMetrics?)
-    func failedToLoadTweets(errorMessage: String?)
+    func failedToLoadTweets(errorMessage: String)
 }
 
 class TwitterWebService {
     var delegate: TwitterWebServiceDelegate?
-    var metrics = Metrics()
+    private var metrics = Metrics()
     private var startDate: Date?
     private var timer: Timer?
     init(delegate: TwitterWebServiceDelegate?) {
@@ -24,18 +24,9 @@ class TwitterWebService {
     }
     
     func getTweets() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { (timer: Timer) in
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).sync {
-                var numberOfSeconds: UInt = 0
-                if let startDate = self.startDate {
-                    numberOfSeconds = UInt(Date().timeIntervalSince(startDate))
-                }
-                let displayMetrics = self.metrics.getDisplayMetrics(numberOfSeconds: numberOfSeconds)
-                DispatchQueue.main.async {
-                    self.delegate?.didLoadTweets(metrics: displayMetrics)
-                }
-            }
-            
+        if self.timer == nil {
+            self.updateDisplayMetrics()
+            self.addUpdateDisplayMetricsTimer()
         }
         startDate = Date()
         let consumerKey = "aVThC4Adafl2fMQdnMVTdPGnS"
@@ -46,7 +37,7 @@ class TwitterWebService {
                                        consumerSecret: consumerSecret,
                                        oauthToken: accessToken,
                                        oauthTokenSecret: accessTokenSecret)
-        swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { (json: JSON) in
+        _ = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { (json: JSON) in
             if let tweet = Tweet.tweetWithJson(json) {
                 DispatchQueue.global().async {
                     self.metrics.update(tweet: tweet)
@@ -56,9 +47,35 @@ class TwitterWebService {
                 print("")
         }) { (error: Error) in
             self.delegate?.failedToLoadTweets(errorMessage: error.localizedDescription)
-            self.timer?.invalidate()
-            self.timer = nil
+            self.stopDisplayMetricsTimer()
         }
     }
+    
+    //MARK: Update Display Metrics Timer
+    
+    private func updateDisplayMetrics() {
+        var numberOfSeconds: UInt = 0
+        if let startDate = self.startDate {
+            numberOfSeconds = UInt(startDate.secondsSinceDate)
+        }
+        let displayMetrics = self.metrics.getDisplayMetrics(numberOfSeconds: numberOfSeconds)
+        DispatchQueue.main.async {
+            self.delegate?.didLoadTweets(metrics: displayMetrics)
+        }
+    }
+    
+    private func addUpdateDisplayMetricsTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: Constant.TwitterStream.updateDisplayMetricsInterval, repeats: true) { (timer: Timer) in
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).sync {
+                self.updateDisplayMetrics()
+            }
+        }
+    }
+    
+    func stopDisplayMetricsTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
 }
+
 

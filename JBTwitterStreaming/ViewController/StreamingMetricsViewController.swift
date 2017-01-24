@@ -67,8 +67,13 @@ class StreamingMetricsViewController: UITableViewController, TwitterWebServiceDe
         tableView.reloadData()
     }
     
-    func failedToLoadTweets(errorMessage: String?) {
-        
+    func failedToLoadTweets(errorMessage: String) {
+        let alertController = UIAlertController(title: "Error!",
+                                                message: errorMessage,
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -88,7 +93,11 @@ fileprivate enum Section {
     }
     
     private func getNumberOfTopValuesToDisplay(entityCount: Int?) -> Int {
-        return entityCount ?? Constant.TableView.minimumNumberOfRowsInSection
+        if let entityCount = entityCount, entityCount > Constant.TableView.minimumNumberOfRowsInSection {
+            return entityCount
+        } else {
+            return Constant.TableView.minimumNumberOfRowsInSection
+        }
     }
     
     func getDisplayValue(index: Int, metrics: DisplayMetrics?) -> TopValue? {

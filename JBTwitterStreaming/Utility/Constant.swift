@@ -18,6 +18,10 @@ struct Constant {
         }
     }
     
+    struct TwitterStream {
+        static let updateDisplayMetricsInterval: TimeInterval = 0.3
+    }
+    
     struct Time {
         static let secondsInMinute: UInt = 60
         static let minutesInHour: UInt = 60
