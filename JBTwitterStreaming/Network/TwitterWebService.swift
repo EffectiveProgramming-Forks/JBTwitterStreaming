@@ -20,7 +20,7 @@ class TwitterWebService {
     private var metrics: Metrics?
     private var startDate: Date?
     private var timer: Timer?
-    private let queue = DispatchQueue(label: "com.twitterstreaming.serialqueue", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "com.twitterstreaming.queue", attributes: .concurrent)
     init(delegate: TwitterWebServiceDelegate?) {
         self.delegate = delegate
     }
