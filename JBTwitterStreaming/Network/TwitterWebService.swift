@@ -64,7 +64,7 @@ class TwitterWebService {
         }
     }
 
-    //MARK: Update Display Metrics Timer
+    //MARK: Update Display Metrics
     
     private func updateDisplayMetrics() {
         guard let metrics = self.metrics, metrics.shouldUpdateDisplayMetrics == true else {
@@ -94,6 +94,8 @@ class TwitterWebService {
             self.delegate?.didLoadTweets(metrics: displayMetrics)
         }
     }
+    
+    //MARK: Update Display Metrics Timer
     
     private func addUpdateDisplayMetricsTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: Constant.TwitterStream.updateDisplayMetricsInterval, repeats: true) { [weak self] (timer: Timer) in

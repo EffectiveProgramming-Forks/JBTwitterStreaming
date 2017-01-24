@@ -8,6 +8,7 @@
 
 import Foundation
 
+// http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
 extension UnicodeScalar {
     var isEmoji: Bool {
         switch value {
