@@ -190,6 +190,7 @@
 				TargetAttributes = {
 					A90CB7AB1E36DA3E00E49285 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = Q2Q6JR7QDX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -410,6 +411,8 @@
 			baseConfigurationReference = A09EF8E392A41C898F48DB3D /* Pods-JBTwitterStreaming.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q2Q6JR7QDX;
 				INFOPLIST_FILE = JBTwitterStreaming/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jeff.breunig.JBTwitterStreaming;
@@ -423,6 +426,8 @@
 			baseConfigurationReference = C7EF3A4276F95433D5E974E5 /* Pods-JBTwitterStreaming.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q2Q6JR7QDX;
 				INFOPLIST_FILE = JBTwitterStreaming/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jeff.breunig.JBTwitterStreaming;

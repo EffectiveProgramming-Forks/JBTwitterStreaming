@@ -34,14 +34,16 @@ class TwitterWebService {
         metrics = Metrics()
         addUpdateDisplayMetricsTimer()
         startDate = Date()
-        let consumerKey = "aVThC4Adafl2fMQdnMVTdPGnS"
-        let consumerSecret = "tpsDI7XfHryBRSwYEFugHWhKwfEKtixPy8bwVvvwpBDE6vtchc"
-        let accessToken = "242103298-ewSaidq24kC7Muu5jshDNu57Rsmts4jk3qjF4GuY"
-        let accessTokenSecret = "9xtE7ChuJhQMTBZgoRSjPHVMbRXJgbvD3iSKFgvkBmcRQ"
-        let swifter: Swifter = Swifter(consumerKey: consumerKey,
-                                       consumerSecret: consumerSecret,
-                                       oauthToken: accessToken,
-                                       oauthTokenSecret: accessTokenSecret)
+        // Application access level: read-only
+        // Not safe - don't store authentication values in prod
+        let swifter: Swifter = Swifter(consumerKey: try! Constant.Authentication.consumerKey.decrypt(
+            key: Constant.Authentication.key, iv: Constant.Authentication.iv),
+                                       consumerSecret: try! Constant.Authentication.consumerSecret.decrypt(
+                                        key: Constant.Authentication.key, iv: Constant.Authentication.iv),
+                                       oauthToken: try! Constant.Authentication.accessToken.decrypt(
+                                        key: Constant.Authentication.key, iv: Constant.Authentication.iv),
+                                       oauthTokenSecret: try! Constant.Authentication.accessTokenSecret.decrypt(
+                                        key: Constant.Authentication.key, iv: Constant.Authentication.iv))
         streamRequest = swifter.streamRandomSampleTweets(delimited: true, stallWarnings: true, progress: { [weak self] (json: JSON) in
             if let tweet = Tweet.tweetWithJson(json) {
                 DispatchQueue.global().async {
@@ -60,7 +62,7 @@ class TwitterWebService {
             }
         }
     }
-    
+
     //MARK: Update Display Metrics Timer
     
     private func updateDisplayMetrics() {

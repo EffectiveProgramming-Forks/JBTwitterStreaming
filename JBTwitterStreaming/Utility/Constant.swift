@@ -32,4 +32,13 @@ struct Constant {
         static let applicationDidEnterBackground = "applicationDidEnterBackground"
         static let applicationWillEnterForeground = "applicationWillEnterForeground"
     }
+    
+    struct Authentication {
+        static let consumerKey = "++T29RSBmvhXZITx/dGEvSHc1rBSVNjCYUmyVSSoD+Y="
+        static let consumerSecret = "UJv/NLI+6Rb5QnGsoCyY4uuwMrvDgk5KRwLd627UW/CtwHtsXTpSHwdSXiQRSgM9pmcHenNHPnMoo5LSz3gs0A=="
+        static let accessToken = "kVFdTUr1XwmF8af1IhHuQTJmBW2yvn7KgkAQjgo+9ey4bH5AWVqOz/g35HwnmMIilT+fw0BpHoEQROdRPIHZmw=="
+        static let accessTokenSecret = "EAP+HHKI5iMTu96oUXkn5MxXrfucorPXm0Hvwo6M+BsMdHpuXR1JwpXvckWghAib"
+        static let key = "bbC2H19lkVbQDfakxcrtNMQdd0FloLyw"
+        static let iv = "gqLOHUioQ0QjhuvI"
+    }
 }

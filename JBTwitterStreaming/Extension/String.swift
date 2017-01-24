@@ -70,3 +70,23 @@ extension Emoji {
         return chars
     }
 }
+
+import CryptoSwift
+typealias Encrpytion = String
+extension Encrpytion {
+    func decrypt(key: String, iv: String) throws -> String {
+        let data = Data(base64Encoded: self)!
+        let decrypted = try! AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).decrypt([UInt8](data))
+        let decryptedData = Data(decrypted)
+        let decryptedString =  String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
+        return decryptedString
+    }
+    
+    func encrypt(key: String, iv: String) throws -> String {
+        let data = self.data(using: .utf8)!
+        let encrypted = try! AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt([UInt8](data))
+        let encryptedData = Data(encrypted)
+        let encryptedString = encryptedData.base64EncodedString()
+        return encryptedString
+    }
+}

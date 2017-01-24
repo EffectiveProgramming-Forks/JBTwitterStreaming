@@ -1,7 +1,9 @@
 PODS:
+  - CryptoSwift (0.6.7)
   - Swifter (2.0.1)
 
 DEPENDENCIES:
+  - CryptoSwift
   - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
 
 EXTERNAL SOURCES:
@@ -14,8 +16,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mattdonnelly/Swifter.git
 
 SPEC CHECKSUMS:
+  CryptoSwift: 685ae257941e5447474348a2b545583e1a16b573
   Swifter: 66549f8455efb28775d7aa743815e846f287d4b0
 
-PODFILE CHECKSUM: 417935d96df3fc1116f5a414abd4709c3310312b
+PODFILE CHECKSUM: 51c16487f2fc5f258c70a2a4b5e99a22798a566c
 
 COCOAPODS: 1.1.0
